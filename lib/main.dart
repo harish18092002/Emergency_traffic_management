@@ -15,10 +15,6 @@ class _MyAppState extends State<MyApp> {
 
   final LatLng _center = const LatLng(13.033901093883266, 80.18000352026438);
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -32,11 +28,34 @@ class _MyAppState extends State<MyApp> {
           elevation: 2,
         ),
         body: GoogleMap(
-          onMapCreated: _onMapCreated,
+          onMapCreated: (GoogleMapController controller) {
+            mapController = controller;
+          },
           initialCameraPosition: CameraPosition(
             target: _center,
             zoom: 11.0,
           ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings),
+              label: 'Settings',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.history),
+              label: 'History',
+            ),
+          ],
+          currentIndex: 0,
+          selectedItemColor: Colors.green[700],
+          onTap: (index) {
+            // Handle navigation here
+          },
         ),
       ),
     );
